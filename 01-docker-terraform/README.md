@@ -1,6 +1,9 @@
 # Module 1: Docker & Data Ingestion Using Postgres
 
 ### Question 1. Understanding Docker Images 
+> Q1: Run docker with the python:3.13 image. Use an entrypoint bash to interact with the container.
+> What's the version of pip in the image?
+
 1. Creating a Docker image Python 3.13
 ```bash
 docker run -it --rm \
@@ -20,6 +23,9 @@ The pip version of the Python 3.13 Docker image is **25.3**
 
 ---
 ### Question 2. Understanding Docker Networking and Docker-Compose
+> Given the following docker-compose.yaml, 
+> what is the hostname and port that pgadmin should use to connect to the postgres database?
+
 1. Create ``docker-compose.yaml``
 fill the file with the existing script from the question
 ```bash
@@ -100,7 +106,7 @@ This workflow follows a two-phase approach:
    - Script runs via Docker container
    - Can be scheduled or orchestrated later
 
-**Output**
+**Output** <br>
 Data ingestion completed successfully. <br>
 ![Output Data Ingestion](../images/01_Q3_output-data-preparation.png)
 
@@ -131,6 +137,7 @@ where
 > Q4: Which was the pick up day with the longest trip distance? 
 > Only consider trips with trip_distance less than 100 miles (to exclude data errors).
 
+Query: <br>
 ```sql
 select 
 	lpep_pickup_datetime, trip_distance
@@ -150,6 +157,7 @@ limit 1;
 ### Question 5. Biggest Pickup Zone
 > Q5: Which was the pickup zone with the largest total_amount (sum of all trips) on November 18th, 2025?
 
+Query: <br>
 ```sql
 select 
 	z."Zone" as pickup_zone,
@@ -177,6 +185,7 @@ limit 1;
 > Q6: For the passengers picked up in the zone named "East Harlem North" in November 2025, 
 > which was the drop off zone that had the largest tip?
 
+Query: <br>
 ```sql
 select 
 	zdo."Zone" as dropoff_zone,
@@ -212,6 +221,16 @@ limit 1;
 > 1. Downloading the provider plugins and setting up the backend  
 > 2. Generating proposed changes and auto-executing the plan  
 > 3. Removing all resources managed by Terraform
+
+**Answer**: <br>
+The correct sequence is:
+```terraform init, terraform apply -auto-approve, terraform destroy``` <br>
+
+Explanation: <br>
+1. ```terraform init```: Initializes the working directory, downloads the necessary provider plugins, and configures the backend for state storage.
+2. ```terraform apply -auto-approve```: Scans the configuration to generate proposed changes and executes them immediately, skipping the manual "yes" confirmation prompt.
+3. ```terraform destroy```: Identifies all resources currently managed in the state file and removes them from the infrastructure provider.
+
 
 
 
