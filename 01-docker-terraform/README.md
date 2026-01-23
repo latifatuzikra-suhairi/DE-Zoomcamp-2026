@@ -1,5 +1,5 @@
 # Module 1: Docker & Data Ingestion Using Postgres
-
+## 📝 Homework
 ### Question 1. Understanding Docker Images 
 > Q1: Run docker with the python:3.13 image. Use an entrypoint bash to interact with the container.
 > What's the version of pip in the image?
@@ -17,7 +17,7 @@ docker run -it --rm \
 pip --version
 ```
 
-**Answer**: <br>
+**✅ Answer**: <br>
 The pip version of the Python 3.13 Docker image is **25.3**
 ![Question 1 - PIP Version](../images/01_Q1_pip-version.png)
 
@@ -77,10 +77,8 @@ Register the server connection refers to our configuration on the `docker-compos
 
 ![Question 2 - pgAdmin Server](../images/01_Q2_setup-pgadmin.png)
 
-**Answer**: <br>
+**✅ Answer**: <br>
 Based on the docker-compose.yaml, the right choice is `db:5432`
-
-Notes: [Docker Compose — Ports documentation](https://docs.docker.com/reference/compose-file/services/#ports)
 
 ---
 ### Data Ingestion to Answer Q3-Q6
@@ -129,7 +127,7 @@ where
     trip_distance <= 1;
 ```
 
-**Answer**:<br>
+**✅ Answer**:<br>
 ![Question 3 - Total Trip Less Than Equal 1 Mile](../images/01_Q3_trip-under1miles.png)
 
 ---
@@ -150,7 +148,7 @@ order by
 limit 1;
 ```
 
-**Answer**:<br>
+**✅ Answer**:<br>
 ![Question 4 - Longest Trip for Each Day](../images/01_Q4_longest-trip-distance.png)
 
 ---
@@ -177,7 +175,7 @@ order by total_amount desc
 limit 1;
 ```
 
-**Answer**:<br>
+**✅ Answer**:<br>
 ![Question 5 - Largest Amount by Zone](../images/01_Q5_largest-amount-by-zone.png)
 
 ---
@@ -212,7 +210,7 @@ order by
 	tip_amount DESC
 limit 1;
 ```
-**Answer**:<br>
+**✅ Answer**:<br>
 ![Question 6 - Largest Tip](../images/01_Q6_largest-tip.png)
 
 ---
@@ -221,8 +219,15 @@ limit 1;
 > 1. Downloading the provider plugins and setting up the backend  
 > 2. Generating proposed changes and auto-executing the plan  
 > 3. Removing all resources managed by Terraform
+>
+> Choices:
+> - terraform import, terraform apply -y, terraform destroy
+> - teraform init, terraform plan -auto-apply, terraform rm
+> - terraform init, terraform run -auto-approve, terraform destroy
+> - terraform init, terraform apply -auto-approve, terraform destroy
+> - terraform import, terraform apply -y, terraform rm
 
-**Answer**: <br>
+**✅ Answer**: <br>
 The correct sequence is:
 ```terraform init, terraform apply -auto-approve, terraform destroy``` <br>
 
@@ -231,6 +236,12 @@ Explanation: <br>
 2. ```terraform apply -auto-approve```: Scans the configuration to generate proposed changes and executes them immediately, skipping the manual "yes" confirmation prompt.
 3. ```terraform destroy```: Identifies all resources currently managed in the state file and removes them from the infrastructure provider.
 
+## 🔗 Learning Resources
+References and learning materials used in this project:
+1. [Docker for Data Engineering: Postgres, Docker Compose, and Real-World Workflows - Alexey Grigorev](https://www.youtube.com/watch?v=lP8xXebHmuE)
+2. [Docker Compose — Ports documentation](https://docs.docker.com/reference/compose-file/services/#ports)
+3. [Terraform Official Documentation](https://developer.hashicorp.com/terraform)
+3. [Introduction to Terraform](https://www.youtube.com/watch?v=s2bOYDCKl_M&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb&index=12)
 
 
 
