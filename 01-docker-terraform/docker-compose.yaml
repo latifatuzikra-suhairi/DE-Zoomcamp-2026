@@ -1,0 +1,70 @@
+services:
+  # =========================
+  # DATABASE
+  # =========================
+  db:
+    image: postgres:17-alpine
+    container_name: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: ny_taxi
+    ports:
+      - "5433:5432"
+    volumes:
+      - vol-pgdata:/var/lib/postgresql/data
+
+  # =========================
+  # PGADMIN (DB UI)
+  # =========================
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: pgadmin@pgadmin.com
+      PGADMIN_DEFAULT_PASSWORD: pgadmin
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+    volumes:
+      - vol-pgadmin_data:/var/lib/pgadmin
+
+# =========================
+# DEV: JUPYTER NOTEBOOK
+# =========================
+  notebook:
+      build:
+        context: ./pipeline
+      container_name: ny-taxi-notebook
+      ports:
+        - "8888:8888"
+      volumes:
+        - ./pipeline:/app
+      depends_on:
+        - db
+      profiles:
+      - dev
+      command: >
+        bash -c "jupyter notebook --ip=0.0.0.0 --port=8888 --no-browser --allow-root --NotebookApp.token=''"
+
+  # =========================
+  # PROD: PYTHON PIPELINE
+  # =========================
+  pipeline:
+    build:
+      context: ./pipeline
+    container_name: ny-taxi-pipeline
+    volumes:
+      - ./pipeline:/app
+    depends_on:
+      - db
+    profiles:
+      - prod
+    command: python pipeline.py
+
+volumes:
+  vol-pgdata:
+    name: vol-pgdata
+  vol-pgadmin_data:
+    name: vol-pgadmin_data
