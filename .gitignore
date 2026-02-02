@@ -12,3 +12,6 @@ __pycache__/
 
 # env
 .env
+
+# credentials
+.service-account.json
