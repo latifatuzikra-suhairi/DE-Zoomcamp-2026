@@ -77,7 +77,7 @@ Using this query:
 ```sql
 SELECT COUNT(*) AS total_rows
 FROM yellow_tripdata
-WHERE EXTRACT(YEAR FROM lpep_pickup_datetime) = 2020;
+WHERE EXTRACT(YEAR FROM tpep_pickup_datetime) = 2020;
 ```
 
 **✅ Answer**: <br>
@@ -92,7 +92,7 @@ Using this query:
 ```sql
 SELECT COUNT(*) AS total_rows
 FROM green_tripdata
-WHERE EXTRACT(YEAR FROM tpep_pickup_datetime) = 2020;
+WHERE EXTRACT(YEAR FROM lpep_pickup_datetime) = 2020;
 ```
 
 **✅ Answer**: <br>
