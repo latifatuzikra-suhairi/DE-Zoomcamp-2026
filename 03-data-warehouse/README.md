@@ -177,11 +177,11 @@ The best strategy is using **Partition by tpep_dropoff_datetime and Cluster on V
   </tr>
   <tr>
     <td align="center">
-      <img src="images/03_Q6_non-partitioning-table.png" alt="Non-Partitioned Table Bytes" width="80%"/><br>
+      <img src="../images/03_Q6_non-partitioning-table.png" alt="Non-Partitioned Table Bytes" width="80%"/><br>
       Estimated Bytes: 310.24 MB
     </td>
     <td align="center">
-      <img src="images/03_Q6_partitioning-table.png" alt="Partitioned Table Bytes" width="80%"/><br>
+      <img src="../images/03_Q6_partitioning-table.png" alt="Partitioned Table Bytes" width="80%"/><br>
       Estimated Bytes: 26.84 MB
     </td>
   </tr>
@@ -219,7 +219,7 @@ The answer is **False**. While clustering is a powerful optimization tool, it is
 ### Question 9. Understanding table scans
 > Write a SELECT count(*) query FROM the materialized table you created. How many bytes does it estimate will be read? Why?
 
-![Homework 3 - Understanding BigQuery Tablescan](../images/03_Q9_tablescan.png)
+![Homework 3 - Understanding BigQuery Tablescan](../images/03_Q9_tablescan.png)<br>
 When running a `SELECT count(*)` on a materialized table in BigQuery, the estimated bytes processed will be `0 B`. Because BigQuery does not perform a Table Scan for this query.
 
 BigQuery is a modern data warehouse that maintains extensive Metadata for all its native tables. Metadata is essentially "data about the data" that is stored separately from the actual rows.
