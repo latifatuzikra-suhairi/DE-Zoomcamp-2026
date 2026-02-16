@@ -100,3 +100,23 @@ sources:
             description: Improvement surcharge
           - name: total_amount
             description: Total amount charged
+
+      - name: fhv_tripdata
+        identifier: fhv_tripdata
+        description: Raw fhv taxi trip records
+        loaded_at_field: pickup_datetime
+        columns:
+          - name: dispatching_base_num
+            description: The TLC Base License Number of the base that dispatched the trip.
+          - name: pickup_datetime
+            description: The date and time when the passenger was picked up.
+          - name: dropoff_datetime
+            description: The date and time when the passenger was dropped off.
+          - name: pulocationid
+            description: TLC Taxi Zone ID where the passenger was picked up.
+          - name: dolocationid
+            description: TLC Taxi Zone ID where the passenger was dropped off.
+          - name: sr_flag
+            description: Indicates if the trip was a part of a shared ride (pooled trip). Often null in FHV data.
+          - name: affiliated_base_number
+            description: The TLC Base License Number of the base affiliated with the vehicle that provided the trip.
