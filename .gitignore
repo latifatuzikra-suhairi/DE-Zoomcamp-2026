@@ -18,3 +18,5 @@ __pycache__/
 
 # parquet
 *.parquet
+*.json
+*.csv

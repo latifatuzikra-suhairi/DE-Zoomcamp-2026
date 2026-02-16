@@ -45,7 +45,7 @@ dbt Platform is dbt's cloud-based development environment with a web IDE, schedu
     - Upload a service account json file from GCP. Configured to use a Service Account JSON key with `BigQuery Admin` and `Storage Admin` roles to manage the nytaxi dataset. The dbt will automatically extract our `GCP project_id and authentication credentials`
     - Click **test connection**. You should see a success message: **Connection test succeeded**
     <br>
-    Advanced Settings 
+    Advanced Settings <br>
     - Dataset: enter `nytaxi_dbt`
     - Location: Select the same location as your `nytaxi dataset in BigQuery`, mine is `US`
     - Timeout: `300 seconds`
@@ -56,19 +56,19 @@ dbt Cloud needs a Git repository to store your project code. You have two option
 - Connect Your Own GitHub Repository (Recommended for Production)
 <br>
 
-I choose to connect to my own github repository. Since this repository contains multiple modules from the Data Engineering Zoomcamp, specific configurations were applied to ensure dbt Cloud targets the correct files using `Project Subdirectory`. To set this, go to **Account settings > Projects > zoomcamp-dbt > Project subdirectory**
+    I choose to connect to my own github repository. Since this repository contains multiple modules from the Data Engineering Zoomcamp, specific configurations were applied to ensure dbt Cloud targets the correct files using `Project Subdirectory`. To set this, go to **Account settings > Projects > zoomcamp-dbt > Project subdirectory**
 
 4. Start Developing 
 Once your project, connection, and repository are configured, you're ready to start building dbt models.
-- Click Start developing in the Studio IDE (side navigation bar)
-- dbt Cloud will initialize your workspace (this may take a minute)
-- Once the IDE loads, you'll have a fresh project ready for development!
-- Need to copy & understand these file from data enginering zoomcamp [repo  NYC TLC Data repository](https://github.com/DataTalksClub/data-engineering-zoomcamp/tree/main/04-analytics-engineering/taxi_rides_ny). Important files:
-    - `packages.yml`
-    - `package-lock.yml`
-    - all files inside folder `macros`
-    - all files inside folder `models`
-    - all files inside folder `seed`
+    - Click Start developing in the Studio IDE (side navigation bar)
+    - dbt Cloud will initialize your workspace (this may take a minute)
+    - Once the IDE loads, you'll have a fresh project ready for development!
+    - Need to copy & understand these file from data enginering zoomcamp [repo  NYC TLC Data repository](https://github.com/DataTalksClub/data-engineering-zoomcamp/tree/main/04-analytics-engineering/taxi_rides_ny). Important files:
+        - `packages.yml`
+        - `package-lock.yml`
+        - all files inside folder `macros`
+        - all files inside folder `models`
+        - all files inside folder `seed`
 
 #### Step 3: Project Initialization & Configuration
 After setting up the IDE and copying the necessary files, follow these steps to initialize the environment:
@@ -120,29 +120,30 @@ By default, the staging models use a filter to limit data for faster development
 dbt run --select stg_green_tripdata
 ```
 
-2. Production Build (Full Data)
-There are two primary ways to process the full 2019-2020 dataset in dbt Cloud:
-    **A. Manual Execution (IDE)**
+2. Production Build (Full Data) <br>
+There are two primary ways to process the full 2019-2020 dataset in dbt Cloud: <br>
+    **A. Manual Execution (IDE)** <br>
         For testing or one-time manual runs, you can use the command line at the bottom of the dbt Cloud IDE.
         ```bash
         dbt build --vars 'is_test_run: false'
         ```
-    **B. Automated Jobs (Production Environment)**
-        For a "real-world" deployment, we use dbt Cloud Jobs. This allows us to separate development from production and schedule runs.
-        1. Create production environments. On the side navigation bar, select **Orchestration > Environtments > + Create Environment**
-        2. Fill required field with this values:
-           - `environtment name` : use name as what you want, i use `production`
-           - `Set deployment type` : `production`
-           - `connection` : `bigquery`
-           - `dataset` : use name as what you want, mine is `nytaxi_dbt_prod`
-        3. Go to **Orchestration > Jobs > + Create Job > Deploy Job**
-        4. Fill required field with this values:
-            - `job name` : use name as what you want, i use `production`
-            - `environment` : `production`
-            - `commands` : fill with bash commands that you need, i use `dbt build` as if already allow all needed transformation
-            - `target name` : on advance settings, fill with `production`
-            - `run timeout`: mine is `300`
-            - `thread` : mine is `8` (optional)
+        <br>
+    **B. Automated Jobs (Production Environment)**<br>
+        For a "real-world" deployment, we use dbt Cloud Jobs. This allows us to separate development from production and schedule runs. <br>
+        1. Create production environments. On the side navigation bar, select **Orchestration > Environtments > + Create Environment** <br>
+        2. Fill required field with this values: <br>
+           - `environtment name` : use name as what you want, i use `production` <br>
+           - `Set deployment type` : `production` <br>
+           - `connection` : `bigquery` <br>
+           - `dataset` : use name as what you want, mine is `nytaxi_dbt_prod` <br>
+        3. Go to **Orchestration > Jobs > + Create Job > Deploy Job** <br>
+        4. Fill required field with this values: <br>
+            - `job name` : use name as what you want, i use `production` <br>
+            - `environment` : `production` <br>
+            - `commands` : fill with bash commands that you need, i use `dbt build` as if already allow all needed transformation <br>
+            - `target name` : on advance settings, fill with `production` <br>
+            - `run timeout`: mine is `300` <br>
+            - `thread` : mine is `8` (optional) <br>
         5. Save the job and run the job. *Remember to commit & push the latest version of your dbt file to github (main brach) before execute the job*
         <br>
 
@@ -163,14 +164,16 @@ There are two primary ways to process the full 2019-2020 dataset in dbt Cloud:
 </tr>
 </table>
 
+<hr>
+
 ### Q1: dbt Lineage and Execution
 > Given a dbt project with the following structure:
-> models/
+> ``` models/
 > ├── staging/
 > │   ├── stg_green_tripdata.sql
 > │   └── stg_yellow_tripdata.sql
 > └── intermediate/
->     └── int_trips_unioned.sql (depends on stg_green_tripdata & stg_yellow_tripdata)
+>     └── int_trips_unioned.sql (depends on stg_green_tripdata & stg_yellow_tripdata)```
 >
 > If you run dbt run --select int_trips_unioned, what models will be built?
 > - stg_green_tripdata, stg_yellow_tripdata, and int_trips_unioned (upstream dependencies)
@@ -222,8 +225,9 @@ This failure triggers dbt to return a **non-zero exit code**, which is a vital m
     FROM 
     `zoomcamp-dbt-487603.nytaxi_dbt_prod.fct_monthly_zone_revenue`;
 ```
-<br>
+
 ![Homework 4 - Count Records](../images/04_Q3_count_record.png)
+
 <br>
 
 **✅ Answer**: <br>
@@ -251,8 +255,9 @@ ORDER BY
     total_revenue DESC
 LIMIT 1;
 ```
-<br>
+
 ![Homework 4 - Highest Green Taxi Pickup Zone in 2020](../images/04_Q4_highest_pickupzone_revenue_2020.png)
+
 <br>
 
 **✅ Answer**: <br>
@@ -276,8 +281,9 @@ WHERE
     service_type = 'Green' 
     AND revenue_month = '2019-10-01';
 ```
-<br>
+
 ![Homework 4 - Green Taxi Trip Counts (October 2019)](../images/04_Q5_total_trip.png)
+
 <br>
 
 **✅ Answer**: <br>
@@ -379,6 +385,7 @@ To execute just the FHV staging model, i use:
 ```bash
 dbt run --select stg_fhv_tripdata
 ```
+
 <br>
 
 Here are the specific transformations i performed:
@@ -403,8 +410,9 @@ SELECT
 FROM 
     `zoomcamp-dbt-487603.nytaxi_dbt_prod.stg_fhv_tripdata` LIMIT 10
 ```
-<br>
+
 ![Homework 4 - FHV Data for 2019](../images/04_Q6_count_fhv_tripdata.png)
+
 <br>
 
 **✅ Answer**: <br>
