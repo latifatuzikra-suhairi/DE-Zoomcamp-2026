@@ -30,7 +30,7 @@ gcloud auth application-default login
 python load_data.py
 ```
 The script will upload the data to the GCS bucket and load data from GCS bucket into BigQuery. A successful run will produce output similar to the following: <br>
-![Homework 4 - Load Data Into BigQuery](../images/04_load_data_to_bq_.png)
+![Homework 4 - Load Data Into BigQuery](../images/04_load_data_to_bq.png)
 
 #### Step 2: dbt Setup
 dbt Platform is dbt's cloud-based development environment with a web IDE, scheduler, and collaboration features. dbt offers a free Developer plan. This should be more than enough to learn dbt and follow the course.
@@ -56,7 +56,7 @@ dbt Cloud needs a Git repository to store your project code. You have two option
 - Connect Your Own GitHub Repository (Recommended for Production)
 <br>
 
-    I choose to connect to my own github repository. Since this repository contains multiple modules from the Data Engineering Zoomcamp, specific configurations were applied to ensure dbt Cloud targets the correct files using `Project Subdirectory`. To set this, go to **Account settings > Projects > zoomcamp-dbt > Project subdirectory**
+I choose to connect to my own github repository. Since this repository contains multiple modules from the Data Engineering Zoomcamp, specific configurations were applied to ensure dbt Cloud targets the correct files using `Project Subdirectory`. To set this, go to **Account settings > Projects > zoomcamp-dbt > Project subdirectory**
 
 4. Start Developing 
 Once your project, connection, and repository are configured, you're ready to start building dbt models.
@@ -127,7 +127,7 @@ There are two primary ways to process the full 2019-2020 dataset in dbt Cloud: <
         ```bash
         dbt build --vars 'is_test_run: false'
         ```
-        <br>
+        <br><br>
     **B. Automated Jobs (Production Environment)**<br>
         For a "real-world" deployment, we use dbt Cloud Jobs. This allows us to separate development from production and schedule runs. <br>
         1. Create production environments. On the side navigation bar, select **Orchestration > Environtments > + Create Environment** <br>
@@ -144,10 +144,9 @@ There are two primary ways to process the full 2019-2020 dataset in dbt Cloud: <
             - `target name` : on advance settings, fill with `production` <br>
             - `run timeout`: mine is `300` <br>
             - `thread` : mine is `8` (optional) <br>
-        5. Save the job and run the job. *Remember to commit & push the latest version of your dbt file to github (main brach) before execute the job*
-        <br>
+        5. Save the job and run the job. *Remember to commit & push the latest version of your dbt file to github (main brach) before execute the job* <br><br>
 
-        After configuring the production environment and setting up the automated job, the pipeline was executed successfully. Below are the results from both the dbt Cloud interface and the BigQuery Console: <br>
+After configuring the production environment and setting up the automated job, the pipeline was executed successfully. Below are the results from both the dbt Cloud interface and the BigQuery Console: <br>
 
 <table width="100%">
 <tr>
@@ -173,9 +172,10 @@ There are two primary ways to process the full 2019-2020 dataset in dbt Cloud: <
 > │   ├── stg_green_tripdata.sql
 > │   └── stg_yellow_tripdata.sql
 > └── intermediate/
->     └── int_trips_unioned.sql (depends on stg_green_tripdata & stg_yellow_tripdata)```
+>     └── int_trips_unioned.sql (depends on stg_green_tripdata & stg_yellow_tripdata)
+> ```
 >
-> If you run dbt run --select int_trips_unioned, what models will be built?
+> If you run dbt run `--select int_trips_unioned`, what models will be built?
 > - stg_green_tripdata, stg_yellow_tripdata, and int_trips_unioned (upstream dependencies)
 > - Any model with upstream and downstream dependencies to int_trips_unioned
 > - int_trips_unioned only
@@ -187,15 +187,18 @@ In dbt, when you use the `--select1` (or shorthand `-s`) flag without any additi
 **✅ Answer**: <br>
 **`int_trips_unioned` only**
 
+<hr>
+
 ### Q2: dbt Lineage and Execution
 > You've configured a generic test like this in your schema.yml:
-> columns:
+> ```columns:
 >  - name: payment_type
 >    data_tests:
 >      - accepted_values:
 >          arguments:
 >            values: [1, 2, 3, 4, 5]
 >            quote: false
+> ```
 >
 > Your model fct_trips has been running successfully for months. A new value `6` now appears in the source data. What happens when you run dbt test `--select fct_trips`?
 > - dbt will skip the test because the model didn't change
@@ -210,6 +213,8 @@ This failure triggers dbt to return a **non-zero exit code**, which is a vital m
 
 **✅ Answer**: <br>
 **dbt will fail the test, returning a non-zero exit code.**
+
+<hr>
 
 ### Q3: Counting Records in `fct_monthly_zone_revenue`
 > After running your dbt project, query the `fct_monthly_zone_revenue` model.
@@ -232,6 +237,8 @@ This failure triggers dbt to return a **non-zero exit code**, which is a vital m
 
 **✅ Answer**: <br>
 Total records in `fct_monthly_zone_revenue` is **12,184**
+
+<hr>
 
 ### Q4: Best Performing Zone for Green Taxis (2020)
 > Using the fct_monthly_zone_revenue table, find the pickup zone with the highest total revenue (revenue_monthly_total_amount) for Green taxi trips in 2020. Which zone had the highest revenue?
@@ -263,6 +270,7 @@ LIMIT 1;
 **✅ Answer**: <br>
 Best Performing Zone for Green Taxis in 2020 is **East Harlem North**
 
+<hr>
 
 ### Q5: Green Taxi Trip Counts (October 2019)
 > Using the fct_monthly_zone_revenue table, what is the total number of trips (total_monthly_trips) for Green taxis in October 2019?
@@ -288,6 +296,8 @@ WHERE
 
 **✅ Answer**: <br>
 Green Taxi Trip Counts in October 2019 is **384,624**
+
+<hr>
 
 ### Q6: Build a Staging Model for FHV Data
 > Create a staging model for the For-Hire Vehicle (FHV) trip data for 2019.
