@@ -87,7 +87,7 @@ print(f"Spark version: {spark.version}")
 ```
 
 **Result** <br>
-![Q1](../../images/06_Q1_spark-version.png)
+![Q1](../images/06_Q1_spark-version.png)
 
 ---
 
@@ -116,7 +116,7 @@ df_nytaxi.write.parquet('yellow-tripdata/2025/11/')
 ```
 
 3. Check file size
-![Q2](../../images/06_Q2_partitioning.png)
+![Q2](../images/06_Q2_partitioning.png)
 
 ---
 
@@ -140,7 +140,7 @@ df_nytaxi.createOrReplaceTempView("ny_taxi")
 ```
 
 Then, do spark query: <br>
-![Q3](../../images/06_Q3_count-trips.png)
+![Q3](../images/06_Q3_count-trips.png)
 
 ---
 
@@ -156,7 +156,7 @@ The longest hours trip duration in dataset is **90.6**
 
 **Explanation**: <br>
 Query: <br>
-![Q4](../../images/06_Q4_longest-trips.png)
+![Q4](../images/06_Q4_longest-trips.png)
 
 ---
 
@@ -197,7 +197,7 @@ df_zones.createOrReplaceTempView("zones")
 ```
 
 2. Do query to get the result. <br>
-![Q6](../../images/06_Q6_least-frequent_-pickup-zone.png)
+![Q6](../images/06_Q6_least-frequent_-pickup-zone.png)
 
 
 
